@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    border-color: theme("colors.border");
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: theme("colors.background");
+    color: theme("colors.foreground");
+    font-feature-settings: "cv11", "ss01";
+    font-variation-settings: "opsz" 32;
+  }
+
+  /* Consistent, accessible focus ring using the accent color (Design.md §2.2). */
+  :focus-visible {
+    outline: 2px solid theme("colors.accent-ring");
+    outline-offset: 2px;
+    border-radius: theme("borderRadius.lg");
+  }
+
+  /* Tabular numerals for counts / timestamps (Design.md §3). */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  /* Subtle pulse used by skeletons (Design.md §6.13). */
+  @keyframes presentap-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
+
+  .animate-skeleton {
+    animation: presentap-pulse 1.6s ease-in-out infinite;
+  }
+}
+
+/* Respect reduced-motion preferences (Design.md §12). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
